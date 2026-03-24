@@ -479,6 +479,47 @@ function renderPoems(ctx, time, duration, data, style) {
 }
 
 // =============================================
+// YTS Watermark — drawn on every video frame
+// =============================================
+function drawWatermark(ctx, time) {
+    ctx.save();
+
+    // Position: top-right corner with padding
+    const x = W - 80;
+    const y = 80;
+
+    // Semi-transparent pill background
+    const text = 'YTS';
+    ctx.font = '900 52px Inter';
+    const tw = ctx.measureText(text).width;
+    const padX = 28, padY = 18;
+    const pillW = tw + padX * 2;
+    const pillH = 52 + padY * 2;
+
+    ctx.globalAlpha = 0.55;
+    roundRect(ctx, x - pillW / 2, y - pillH / 2, pillW, pillH, pillH / 2);
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
+    ctx.fill();
+
+    // Border glow
+    ctx.strokeStyle = 'rgba(168, 85, 247, 0.7)';
+    ctx.lineWidth = 2;
+    roundRect(ctx, x - pillW / 2, y - pillH / 2, pillW, pillH, pillH / 2);
+    ctx.stroke();
+
+    // "YTS" text with glow
+    ctx.globalAlpha = 0.85;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.shadowColor = 'rgba(168, 85, 247, 0.9)';
+    ctx.shadowBlur = 12;
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText(text, x, y + 2);
+
+    ctx.restore();
+}
+
+// =============================================
 // Template Registry
 // =============================================
 export const templateRenderers = {
@@ -491,11 +532,13 @@ export const templateRenderers = {
 
 /**
  * Render a single frame for a given template
+ * Draws the YTS watermark on every frame after the template
  */
 export function renderFrame(ctx, templateId, time, duration, data, style) {
     ctx.clearRect(0, 0, W, H);
     const renderer = templateRenderers[templateId] || renderQuotes;
     renderer(ctx, time, duration, data, style);
+    drawWatermark(ctx, time);
 }
 
 export const CANVAS_W = W;
