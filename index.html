@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShortsCraft — Auto YouTube Shorts Generator</title>
+  <meta name="description"
+    content="Fully automated YouTube Shorts generator. One click creates stunning motivational, fact, and trending short videos — zero input needed.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div id="app">
+    <!-- Sidebar -->
+    <aside id="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="5 3 19 12 5 21 5 3" />
+          </svg>
+        </div>
+        <h1>ShortsCraft</h1>
+      </div>
+      <nav class="sidebar-nav">
+        <button class="nav-btn active" data-page="auto" id="nav-auto">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+          </svg>
+          <span>Auto Generate</span>
+        </button>
+        <button class="nav-btn" data-page="gallery" id="nav-gallery">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7" />
+            <rect x="14" y="3" width="7" height="7" />
+            <rect x="14" y="14" width="7" height="7" />
+            <rect x="3" y="14" width="7" height="7" />
+          </svg>
+          <span>My Videos</span>
+        </button>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="stats-card">
+          <div class="stat"><span class="stat-value" id="stat-created">0</span><span class="stat-label">Created</span>
+          </div>
+          <div class="stat"><span class="stat-value" id="stat-exported">0</span><span class="stat-label">Exported</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main id="main-content">
+
+      <!-- AUTO GENERATE PAGE -->
+      <section id="page-auto" class="page active">
+        <div class="page-header">
+          <h2>⚡ Auto Generate Shorts</h2>
+          <p class="page-subtitle">One click = ready-to-upload YouTube Shorts. Zero input needed.</p>
+        </div>
+
+        <!-- Category Selection -->
+        <div class="auto-section">
+          <h3 class="section-title">What type of Shorts?</h3>
+          <div class="category-grid">
+            <label class="category-card active" data-cat="all">
+              <input type="radio" name="category" value="all" checked>
+              <div class="cat-icon">🎲</div>
+              <span>Random Mix</span>
+            </label>
+            <label class="category-card" data-cat="motivation">
+              <input type="radio" name="category" value="motivation">
+              <div class="cat-icon">💪</div>
+              <span>Motivation</span>
+            </label>
+            <label class="category-card" data-cat="facts">
+              <input type="radio" name="category" value="facts">
+              <div class="cat-icon">🧠</div>
+              <span>Facts</span>
+            </label>
+            <label class="category-card" data-cat="tips">
+              <input type="radio" name="category" value="tips">
+              <div class="cat-icon">💡</div>
+              <span>Tips</span>
+            </label>
+            <label class="category-card" data-cat="trending">
+              <input type="radio" name="category" value="trending">
+              <div class="cat-icon">🔥</div>
+              <span>Trending</span>
+            </label>
+            <label class="category-card" data-cat="poems">
+              <input type="radio" name="category" value="poems">
+              <div class="cat-icon">📝</div>
+              <span>Poems</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- How Many -->
+        <div class="auto-section">
+          <h3 class="section-title">How many videos?</h3>
+          <div class="count-selector">
+            <button class="count-btn" data-count="1">1</button>
+            <button class="count-btn" data-count="3">3</button>
+            <button class="count-btn active" data-count="5">5</button>
+            <button class="count-btn" data-count="10">10</button>
+          </div>
+        </div>
+
+        <!-- THE BIG BUTTON -->
+        <button id="btn-auto-generate" class="mega-btn">
+          <div class="mega-btn-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+            </svg>
+          </div>
+          <div class="mega-btn-text">
+            <span class="mega-btn-title">Generate & Export Videos</span>
+            <span class="mega-btn-sub">Auto-creates and downloads all videos</span>
+          </div>
+        </button>
+
+        <!-- Progress Area -->
+        <div id="batch-progress" class="batch-progress hidden">
+          <div class="progress-header">
+            <span class="progress-label" id="progress-label">Generating...</span>
+            <span class="progress-count" id="progress-count">0/0</span>
+          </div>
+          <div class="progress-bar-outer">
+            <div class="progress-bar-fill" id="progress-fill"></div>
+          </div>
+          <!-- Live Preview -->
+          <div class="live-preview">
+            <div class="phone-frame-small">
+              <canvas id="live-canvas" width="1080" height="1920"></canvas>
+            </div>
+            <div class="current-info">
+              <h4 id="current-title">Rendering...</h4>
+              <p id="current-text" class="current-text"></p>
+              <span class="current-badge" id="current-badge">MOTIVATION</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Queue Preview -->
+        <div id="queue-preview" class="queue-preview hidden">
+          <h3 class="section-title">📋 Generated Queue — Preview Before Export</h3>
+          <div id="queue-list" class="queue-list"></div>
+          <div class="queue-actions">
+            <button id="btn-export-all" class="btn btn-primary btn-lg">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              Export All Videos
+            </button>
+            <button id="btn-regenerate" class="btn btn-secondary btn-lg">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="23 4 23 10 17 10" />
+                <path d="M20.49 15a9 9 0 11-2.12-9.36L23 10" />
+              </svg>
+              Regenerate
+            </button>
+          </div>
+        </div>
+
+        <!-- Done Area -->
+        <div id="done-area" class="done-area hidden">
+          <div class="done-icon">✅</div>
+          <h3>All Videos Exported!</h3>
+          <p><span id="done-count">0</span> videos downloaded to your device.</p>
+          <button id="btn-make-more" class="btn btn-primary btn-lg">Make More Shorts</button>
+        </div>
+      </section>
+
+      <!-- GALLERY PAGE -->
+      <section id="page-gallery" class="page">
+        <div class="page-header">
+          <h2>📁 My Videos</h2>
+          <p class="page-subtitle">History of all videos you've generated</p>
+        </div>
+        <div id="gallery-grid" class="gallery-grid">
+          <div class="gallery-empty">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="48">
+              <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18" />
+              <line x1="7" y1="2" x2="7" y2="22" />
+              <line x1="17" y1="2" x2="17" y2="22" />
+              <line x1="2" y1="12" x2="22" y2="12" />
+              <line x1="2" y1="7" x2="7" y2="7" />
+              <line x1="2" y1="17" x2="7" y2="17" />
+              <line x1="17" y1="17" x2="22" y2="17" />
+              <line x1="17" y1="7" x2="22" y2="7" />
+            </svg>
+            <p>No videos yet. Go to "Auto Generate" and create your first batch!</p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Hidden canvas for full-resolution rendering -->
+  <canvas id="render-canvas" width="1080" height="1920" style="display:none"></canvas>
+
+  <!-- Video Player Modal -->
+  <div id="video-modal" class="video-modal hidden">
+    <div class="video-modal-backdrop" id="modal-backdrop"></div>
+    <div class="video-modal-content">
+      <button class="modal-close" id="modal-close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+      </button>
+      <div class="video-phone-frame">
+        <video id="video-player" controls playsinline></video>
+      </div>
+      <div class="video-info">
+        <span class="video-info-badge" id="video-info-badge">MOTIVATION</span>
+        <h3 id="video-info-title">Video Title</h3>
+        <p id="video-info-text" class="video-info-desc"></p>
+        <div class="video-info-actions">
+          <button id="btn-download-single" class="btn btn-primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+            Download
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="src/main.js"></script>
+</body>
+
+</html>
