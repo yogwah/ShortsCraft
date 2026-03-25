@@ -143,15 +143,17 @@ function assignPhotoBackground(short) {
 }
 
 // =============================================
-// Music generation (with cache)
+// Music generation (with cache — short loop)
+// Always generates a short ~10 sec buffer per category
 // =============================================
-async function getMusicForCategory(category, duration) {
-    const key = `${category}-${duration}`;
-    if (state.musicBuffers.has(key)) return state.musicBuffers.get(key);
+const MUSIC_LOOP_DURATION = 10; // seconds
+
+async function getMusicForCategory(category) {
+    if (state.musicBuffers.has(category)) return state.musicBuffers.get(category);
 
     try {
-        const buffer = await generateMusic(category, duration);
-        state.musicBuffers.set(key, buffer);
+        const buffer = await generateMusic(category, MUSIC_LOOP_DURATION);
+        state.musicBuffers.set(category, buffer);
         return buffer;
     } catch (e) {
         console.warn('Music generation failed, exporting without audio:', e);
@@ -190,8 +192,7 @@ async function startAutoGenerate() {
     progressFill.style.width = '0%';
 
     for (const cat of categories) {
-        const dur = batch.find(s => s.category === cat).duration;
-        await getMusicForCategory(cat, dur);
+        await getMusicForCategory(cat);
     }
 
     // Render each Short
@@ -234,8 +235,8 @@ function recordVideoWithMusic(short, index) {
         const segDur = short.segmentDuration || short.duration;
         let frame = 0;
 
-        // Get music buffer for the full duration
-        const musicBuffer = await getMusicForCategory(short.category, totalDuration);
+        // Get music buffer (short loop)
+        const musicBuffer = await getMusicForCategory(short.category);
 
         // Create AudioContext for mixing
         const audioCtx = new AudioContext({ sampleRate: 44100 });
@@ -245,6 +246,7 @@ function recordVideoWithMusic(short, index) {
         if (musicBuffer) {
             audioSource = audioCtx.createBufferSource();
             audioSource.buffer = musicBuffer;
+            audioSource.loop = true;  // Loop short buffer for full duration
             audioSource.connect(dest);
             audioSource.start(0);
         }
