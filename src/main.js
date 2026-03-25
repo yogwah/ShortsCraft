@@ -14,6 +14,7 @@ import { generateMusic, getMoodName } from './music.js';
 const state = {
     selectedCategory: 'all',
     batchCount: 5,
+    selectedDuration: 60,        // total video duration in seconds (1-5 min)
     isGenerating: false,
     generatedQueue: [],
     videoBlobs: new Map(),       // id -> Blob for playback
@@ -67,24 +68,69 @@ function initCountSelector() {
     });
 }
 
+function initDurationSelector() {
+    document.querySelectorAll('.duration-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.duration-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            state.selectedDuration = parseInt(btn.dataset.duration);
+        });
+    });
+}
+
 // =============================================
 // Generate batch for a specific category
+// Multi-segment: each video contains multiple content pieces
 // =============================================
 function generateBatchForCategory(count) {
     const categoryMap = { motivation: 'quotes', facts: 'facts', tips: 'tips', trending: 'trending', poems: 'poems' };
-    const durationMap = { motivation: 7, facts: 9, tips: 8, trending: 8, poems: 10 };
+    const segDurationMap = { motivation: 7, facts: 9, tips: 8, trending: 8, poems: 10 };
+    const totalDuration = state.selectedDuration;
 
-    if (state.selectedCategory === 'all') return autoGenerateBatch(count);
+    if (state.selectedCategory === 'all') {
+        // For "all" category, generate multi-segment shorts
+        const batch = autoGenerateBatch(count);
+        return batch.map(short => {
+            const segDur = segDurationMap[short.category] || 8;
+            const segCount = Math.max(1, Math.ceil(totalDuration / segDur));
+            const segments = buildSegments(short.category, segCount, segDur);
+            return { ...short, duration: totalDuration, segmentDuration: segDur, segments };
+        });
+    }
 
     const cat = state.selectedCategory;
-    const items = getRandomContent(cat, count);
-    return items.map((content, i) => ({
-        id: Date.now() + i,
-        category: cat,
+    const segDur = segDurationMap[cat] || 8;
+    const segCount = Math.max(1, Math.ceil(totalDuration / segDur));
+
+    const results = [];
+    for (let i = 0; i < count; i++) {
+        const segments = buildSegments(cat, segCount, segDur);
+        results.push({
+            id: Date.now() + i,
+            category: cat,
+            content: segments[0].content,
+            style: { gradient: getRandomGradient(), textColor: '#ffffff', accentColor: getRandomAccent() },
+            duration: totalDuration,
+            segmentDuration: segDur,
+            segments,
+            templateId: categoryMap[cat] || 'quotes'
+        });
+    }
+    return results;
+}
+
+/**
+ * Build an array of segments, each with its own content + style + background
+ */
+function buildSegments(category, segCount, segDuration) {
+    const categoryMap = { motivation: 'quotes', facts: 'facts', tips: 'tips', trending: 'trending', poems: 'poems' };
+    const items = getRandomContent(category, segCount);
+    return items.map(content => ({
         content,
         style: { gradient: getRandomGradient(), textColor: '#ffffff', accentColor: getRandomAccent() },
-        duration: durationMap[cat] || 8,
-        templateId: categoryMap[cat] || 'quotes'
+        templateId: categoryMap[category] || 'quotes',
+        duration: segDuration,
+        backgroundImage: getRandomImage(category)
     }));
 }
 
@@ -182,11 +228,14 @@ async function startAutoGenerate() {
 function recordVideoWithMusic(short, index) {
     return new Promise(async (resolve) => {
         const fps = 30;
-        const totalFrames = short.duration * fps;
+        const totalDuration = short.duration;
+        const totalFrames = totalDuration * fps;
+        const segments = short.segments || [short]; // fallback for legacy single-segment
+        const segDur = short.segmentDuration || short.duration;
         let frame = 0;
 
-        // Get music buffer
-        const musicBuffer = await getMusicForCategory(short.category, short.duration);
+        // Get music buffer for the full duration
+        const musicBuffer = await getMusicForCategory(short.category, totalDuration);
 
         // Create AudioContext for mixing
         const audioCtx = new AudioContext({ sampleRate: 44100 });
@@ -203,11 +252,7 @@ function recordVideoWithMusic(short, index) {
         // Combine video + audio streams
         const videoStream = renderCanvas.captureStream(fps);
         const combinedStream = new MediaStream();
-
-        // Add video track
         videoStream.getVideoTracks().forEach(t => combinedStream.addTrack(t));
-
-        // Add audio track if available
         if (musicBuffer) {
             dest.stream.getAudioTracks().forEach(t => combinedStream.addTrack(t));
         }
@@ -239,9 +284,26 @@ function recordVideoWithMusic(short, index) {
                 recorder.stop();
                 return;
             }
-            const time = frame / fps;
-            renderFrame(renderCtx, short.templateId, time, short.duration, short.content, short.style);
-            renderFrame(liveCtx, short.templateId, time, short.duration, short.content, short.style);
+            const globalTime = frame / fps;
+
+            // Determine which segment we're in
+            const segIndex = Math.min(Math.floor(globalTime / segDur), segments.length - 1);
+            const seg = segments[segIndex];
+            const segTime = globalTime - (segIndex * segDur); // time within this segment
+
+            // Build the style with background image if available
+            const style = { ...seg.style };
+            if (seg.backgroundImage) style.backgroundImage = seg.backgroundImage;
+
+            renderFrame(renderCtx, seg.templateId, segTime, segDur, seg.content, style);
+            renderFrame(liveCtx, seg.templateId, segTime, segDur, seg.content, style);
+
+            // Update progress info for the current segment
+            const titleEl = document.getElementById('current-title');
+            const textEl = document.getElementById('current-text');
+            if (titleEl) titleEl.textContent = `Segment ${segIndex + 1}/${segments.length}`;
+            if (textEl) textEl.textContent = seg.content.text ? seg.content.text.replace(/\\n/g, ' ').substring(0, 80) : '';
+
             frame++;
             requestAnimationFrame(renderNextFrame);
         }
@@ -537,6 +599,7 @@ function init() {
     initNav();
     initCategories();
     initCountSelector();
+    initDurationSelector();
     initEvents();
     updateStats();
     renderGallery();

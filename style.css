@@ -333,6 +333,34 @@ body {
   box-shadow: var(--shadow-glow);
 }
 
+.duration-btn {
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-tertiary);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.duration-btn:hover {
+  border-color: var(--accent);
+  transform: scale(1.05);
+}
+
+.duration-btn.active {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: white;
+  box-shadow: var(--shadow-glow);
+}
+
 /* ========================================
    Mega Button — The Big One
    ======================================== */
