@@ -62,6 +62,16 @@ const photoSources = {
         'photo-1470252649378-9c29740c9fa8', // misty forest
         'photo-1504700610630-ac6edd918aa0', // calm water
         'photo-1532274402911-5a369e4c4bb5', // foggy trees
+    ],
+    rights: [
+        'photo-1532375810709-75b1da00537c', // justice scale
+        'photo-1589829545856-d10d557cf95f', // law books
+        'photo-1436450412740-6b988f486c6b', // government building
+        'photo-1557804506-669a67965ba0', // boardroom
+        'photo-1450101499163-c8848c66ca85', // handshake
+        'photo-1541872703-74c5e44368f9', // crowd protest
+        'photo-1529107386315-e1a2ed48a620', // city skyline
+        'photo-1477281765962-ef34e8bb0967', // library
     ]
 };
 

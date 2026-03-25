@@ -205,36 +205,58 @@ export const contentDB = {
     // INDIAN POLITICAL & CITIZEN RIGHTS
     // ==========================================
     rights: [
-        { text: "Article 14: Right to Equality — The State shall not deny any person equality before the law.", article: "Article 14", category: "Fundamental Rights", emoji: "⚖️" },
-        { text: "Article 19: Right to Freedom of Speech & Expression — Every citizen has the right to speak freely.", article: "Article 19", category: "Fundamental Rights", emoji: "🗣️" },
-        { text: "Article 21: Right to Life & Personal Liberty — No person shall be deprived of life except by law.", article: "Article 21", category: "Fundamental Rights", emoji: "🛡️" },
-        { text: "Article 21A: Right to Education — Every child aged 6-14 has the right to free & compulsory education.", article: "Article 21A", category: "Fundamental Rights", emoji: "📚" },
-        { text: "Article 15: Prohibition of Discrimination — No discrimination on grounds of religion, race, caste, sex or place of birth.", article: "Article 15", category: "Fundamental Rights", emoji: "🤝" },
-        { text: "Article 17: Abolition of Untouchability — Untouchability is abolished and its practice in any form is forbidden.", article: "Article 17", category: "Fundamental Rights", emoji: "✊" },
-        { text: "Article 25: Freedom of Religion — All persons are equally entitled to freedom of conscience and the right to profess, practice and propagate religion.", article: "Article 25", category: "Fundamental Rights", emoji: "🕊️" },
-        { text: "Article 32: Right to Constitutional Remedies — You can directly approach the Supreme Court if your fundamental rights are violated.", article: "Article 32", category: "Fundamental Rights", emoji: "🏛️" },
-        { text: "RTI Act 2005: Every citizen has the right to request information from any public authority. Reply must come within 30 days.", article: "RTI Act", category: "Information Rights", emoji: "📋" },
-        { text: "Article 326: Right to Vote — Every citizen above 18 years has the right to vote regardless of caste, religion, or gender.", article: "Article 326", category: "Political Rights", emoji: "🗳️" },
-        { text: "Consumer Protection Act 2019: You have the right to be protected against marketing of hazardous goods and services.", article: "CPA 2019", category: "Consumer Rights", emoji: "🛒" },
-        { text: "Article 23: Right Against Exploitation — Traffic in human beings and forced labor are prohibited.", article: "Article 23", category: "Fundamental Rights", emoji: "⛓️" },
-        { text: "Article 24: No child below 14 years shall be employed in any factory, mine or hazardous employment.", article: "Article 24", category: "Child Rights", emoji: "👶" },
-        { text: "POCSO Act: Protection of Children from Sexual Offences — Strict punishment for any offence against children.", article: "POCSO Act", category: "Child Rights", emoji: "🔒" },
-        { text: "FIR is your right! Police CANNOT refuse to file an FIR. If they do, complain to the Superintendent of Police.", article: "CrPC Sec 154", category: "Legal Rights", emoji: "📝" },
-        { text: "Right to Free Legal Aid: Under Article 39A, every person who cannot afford a lawyer gets free legal aid.", article: "Article 39A", category: "Legal Rights", emoji: "⚖️" },
-        { text: "Article 20: No person shall be punished for the same offence more than once (Double Jeopardy protection).", article: "Article 20", category: "Legal Rights", emoji: "🏛️" },
-        { text: "Article 22: Right to be informed of the grounds of arrest. No arrested person shall be denied the right to consult a lawyer.", article: "Article 22", category: "Legal Rights", emoji: "👮" },
-        { text: "Equal Remuneration Act: Men and women are entitled to equal pay for equal work. Discrimination in wages is illegal.", article: "ERA 1976", category: "Worker Rights", emoji: "💰" },
-        { text: "Maternity Benefit Act: Women are entitled to 26 weeks of paid maternity leave from their employer.", article: "MB Act", category: "Women's Rights", emoji: "🤰" },
-        { text: "Domestic Violence Act 2005: Women have the right to live in a violence-free home. Protection orders can be issued.", article: "DV Act", category: "Women's Rights", emoji: "🏠" },
-        { text: "Right to Privacy: The Supreme Court declared privacy as a Fundamental Right under Article 21 in 2017.", article: "Article 21", category: "Digital Rights", emoji: "🔐" },
-        { text: "MNREGA: Every rural household has the right to 100 days of guaranteed wage employment per year.", article: "MNREGA", category: "Employment Rights", emoji: "🏗️" },
-        { text: "Food Security Act: 75% rural & 50% urban population has the right to receive subsidized food grains.", article: "NFSA 2013", category: "Social Rights", emoji: "🍚" },
-        { text: "Article 19(1)(b): Right to Assemble Peacefully — Citizens can hold peaceful protests and rallies without arms.", article: "Article 19", category: "Political Rights", emoji: "✊" },
-        { text: "Persons with Disabilities Act: Every disabled person has the right to equal opportunities, non-discrimination & full participation.", article: "RPwD 2016", category: "Disability Rights", emoji: "♿" },
-        { text: "Article 29 & 30: Minorities have the right to conserve their language, script, culture & establish educational institutions.", article: "Article 29-30", category: "Minority Rights", emoji: "📖" },
-        { text: "Senior Citizens Act: Parents & senior citizens have the right to claim maintenance from children/relatives.", article: "MWPSC 2007", category: "Senior Rights", emoji: "👴" },
-        { text: "Whistleblower Protection Act: Persons exposing corruption or misuse of power are protected under law.", article: "WBP 2014", category: "Anti-Corruption", emoji: "📢" },
-        { text: "Right to Information: Under RTI, you can ask ANY government department how your tax money is being spent.", article: "RTI Act", category: "Information Rights", emoji: "💡" },
+        // === GOVERNMENT SCAMS & CORRUPTION AWARENESS ===
+        { text: "2G Spectrum Scam: ₹1.76 lakh crore loss. Telecom licenses were given at 2001 prices in 2008. Your tax money — stolen.", article: "2G Scam", category: "Govt Scam", emoji: "📡" },
+        { text: "Vyapam Scam: Thousands of fake candidates cleared exams through bribes. 40+ witnesses died mysteriously.", article: "Vyapam", category: "Govt Scam", emoji: "💀" },
+        { text: "Coal Scam: ₹1.86 lakh crore loss. Coal blocks were given to private firms without auction. Public resources looted.", article: "Coalgate", category: "Govt Scam", emoji: "⛏️" },
+        { text: "PNB Fraud: Nirav Modi looted ₹13,000 crore from Punjab National Bank using fake guarantees. He fled India.", article: "PNB Fraud", category: "Bank Scam", emoji: "🏦" },
+        { text: "Electoral Bonds: ₹16,000+ crore donated anonymously to parties. Supreme Court struck it down as unconstitutional in 2024.", article: "Electoral Bonds", category: "Political Funding", emoji: "💰" },
+        { text: "Every Indian loses ₹18,000/year to corruption. That's money that should have built schools, hospitals, and roads for YOU.", article: "Corruption Tax", category: "Wake Up", emoji: "🤯" },
+        { text: "India ranks 93rd out of 180 countries in the Corruption Perceptions Index. We can do better — start by voting wisely.", article: "CPI Rank", category: "Global Standing", emoji: "🌍" },
+
+        // === HOW TO PICK THE RIGHT CANDIDATE ===
+        { text: "RED FLAG: If a candidate only visits your area during elections — they don't care about you. Check their 5-year track record.", article: "Candidate Check", category: "Election Guide", emoji: "🚩" },
+        { text: "Before voting, check your candidate's criminal record on the Election Commission website. 40% of MPs have criminal cases!", article: "Criminal MPs", category: "Election Guide", emoji: "⚠️" },
+        { text: "A good candidate focuses on DEVELOPMENT — water, roads, jobs, schools. A bad one focuses on DIVISION — caste, religion, hate.", article: "Vote Smart", category: "Election Guide", emoji: "🧠" },
+        { text: "Check affidavits on myneta.info — see your candidate's actual wealth, education, and criminal cases. Knowledge is power.", article: "MyNeta", category: "Voter Tool", emoji: "🔍" },
+        { text: "FREE stuff before elections = YOUR tax money being used to buy YOUR vote. Demand long-term development, not freebies.", article: "Freebie Trap", category: "Election Guide", emoji: "🎁" },
+        { text: "NOTA: If no candidate deserves your vote, press NOTA (None Of The Above). It's your right to reject ALL candidates.", article: "NOTA", category: "Voter Power", emoji: "✋" },
+        { text: "MPs earn ₹2.12 lakh/month salary + ₹70,000 constituency allowance. Are they delivering value for YOUR money?", article: "MP Salary", category: "Accountability", emoji: "💸" },
+        { text: "An MLA has a fund of ₹5 crore/year for local development. Ask YOUR MLA — where did the money go? File RTI to find out.", article: "MLA Fund", category: "Accountability", emoji: "📊" },
+
+        // === YOUR POWER AS A CITIZEN ===
+        { text: "RTI: You can ask ANY government office how they spent public money. File online at rtionline.gov.in for just ₹10.", article: "RTI Act", category: "Citizen Power", emoji: "📋" },
+        { text: "PIL: Any citizen can file a Public Interest Litigation in High Court or Supreme Court for free if public interest is at stake.", article: "PIL", category: "Citizen Power", emoji: "⚖️" },
+        { text: "Lokpal Act: India's anti-corruption watchdog can investigate even the Prime Minister for corruption. Use it.", article: "Lokpal", category: "Anti-Corruption", emoji: "🔱" },
+        { text: "Whistleblower Protection: If you expose corruption, the law protects you. Don't stay silent — report at pgportal.gov.in.", article: "WBP Act", category: "Anti-Corruption", emoji: "📢" },
+        { text: "You can recall your vote if you feel you pressed the wrong button! Ask the presiding officer within the polling booth.", article: "Vote Recall", category: "Voter Rights", emoji: "🗳️" },
+
+        // === FUNDAMENTAL RIGHTS EVERYONE MUST KNOW ===
+        { text: "Article 19: Your right to speak, protest, and criticize the government is FUNDAMENTAL. No one can silence you.", article: "Article 19", category: "Fundamental Rights", emoji: "🗣️" },
+        { text: "Article 21: Right to Life includes clean air, clean water, and livelihood. If your water is polluted — SUE the government.", article: "Article 21", category: "Fundamental Rights", emoji: "💧" },
+        { text: "FIR is your RIGHT. Police CANNOT refuse to file an FIR. If they do — complain to SP or file a private complaint in court.", article: "Section 154", category: "Legal Rights", emoji: "👮" },
+        { text: "Article 22: If police arrest you, they MUST tell you WHY and produce you before a magistrate within 24 hours.", article: "Article 22", category: "Legal Rights", emoji: "⚖️" },
+        { text: "Free Legal Aid: If you can't afford a lawyer, the government MUST provide one for free under Article 39A.", article: "Article 39A", category: "Legal Rights", emoji: "🏛️" },
+
+        // === POLITICAL FACTS THAT WILL SHOCK YOU ===
+        { text: "India spent ₹55,000 crore on 2019 elections — making it the most expensive election in world history.", article: "Election Cost", category: "Political Facts", emoji: "💰" },
+        { text: "Only 67% of Indians voted in 2024. If the 33% who didn't vote chose wisely, the result could be completely different.", article: "Voter Turnout", category: "Political Facts", emoji: "📊" },
+        { text: "India has 900+ political parties but only 6-7 national parties. Most small parties exist only for tax benefits and funding.", article: "Party Count", category: "Political Facts", emoji: "🏛️" },
+        { text: "The PM-CARES Fund received ₹10,000+ crore but is NOT audited by CAG and exempt from RTI. Where did the money go?", article: "PM-CARES", category: "Accountability", emoji: "❓" },
+        { text: "India's fiscal deficit is ₹17.5 lakh crore. That's debt YOUR children will repay. Demand transparency in government spending.", article: "Fiscal Deficit", category: "Economy", emoji: "📉" },
+        { text: "40% of elected MPs/MLAs are crorepatis with wealth over ₹5 crore. Are they representing YOU or themselves?", article: "Rich Politicians", category: "Political Facts", emoji: "🤑" },
+
+        // === WOMEN, YOUTH & MINORITY RIGHTS ===
+        { text: "Women's Reservation: 33% seats reserved in Parliament & State assemblies under 106th Amendment. A historic win.", article: "106th Amendment", category: "Women Power", emoji: "👩" },
+        { text: "SC/ST Atrocities Act: Strict punishment for caste discrimination. If you face discrimination — don't stay silent, file a case.", article: "SC/ST Act", category: "Social Justice", emoji: "✊" },
+        { text: "MNREGA: 100 days guaranteed employment for every rural household. If your village isn't implementing it — file RTI.", article: "MNREGA", category: "Employment Rights", emoji: "🏗️" },
+        { text: "Right to Education: EVERY child aged 6-14 gets FREE education. 25% seats in private schools reserved for EWS students.", article: "Article 21A", category: "Education Rights", emoji: "📚" },
+        { text: "Consumer Court: If any product or service cheats you, file a complaint at consumerhelpline.gov.in. Justice within 90 days.", article: "Consumer Act", category: "Consumer Rights", emoji: "🛒" },
+        { text: "Senior Citizens Act: Your parents/grandparents can legally demand maintenance from children. Elder abuse is a crime.", article: "MWPSC 2007", category: "Senior Rights", emoji: "👴" },
+
+        // === CALL TO ACTION ===
+        { text: "Democracy only works when YOU participate. Know your rights, question your leaders, and VOTE for development — not division.", article: "Your Duty", category: "Call to Action", emoji: "🇮🇳" },
+        { text: "Share this with 5 people. An informed voter is a dangerous voter — dangerous to corrupt politicians.", article: "Spread Awareness", category: "Call to Action", emoji: "🔥" },
     ]
 };
 

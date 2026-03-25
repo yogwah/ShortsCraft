@@ -540,6 +540,7 @@ function getShortTitle(short) {
     if (short.category === 'facts') return `${short.content.emoji || '🧠'} ${short.content.text.substring(0, 40)}...`;
     if (short.category === 'tips') return `💡 ${short.content.category || 'Tip'}`;
     if (short.category === 'trending') return short.content.hook || '🔥 Trending';
+    if (short.category === 'rights') return `🏛️ ${short.content.article || short.content.category || 'Rights'}`;
     return short.content.text.substring(0, 40);
 }
 
