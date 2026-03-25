@@ -55,6 +55,16 @@ const moods = {
         bassType: 'sine',
         reverbTime: 4,
         volume: 0.3,
+    },
+    rights: {
+        name: 'Bold Patriotic',
+        baseFreq: 220,    // A3
+        scale: [0, 2, 4, 5, 7, 9, 11, 12], // Major scale
+        tempo: 75,
+        padType: 'triangle',
+        bassType: 'triangle',
+        reverbTime: 3,
+        volume: 0.3,
     }
 };
 

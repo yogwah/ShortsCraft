@@ -199,6 +199,42 @@ export const contentDB = {
         { text: "You blink about 28,800 times per day without even thinking.", number: "28800", label: "BLINKS PER DAY", emoji: "👁️" },
         { text: "The Amazon River discharges 209,000 cubic meters of water per second.", number: "209000", label: "CUBIC METERS/SEC", emoji: "🌢" },
         { text: "A single Google search uses 0.3 watt-hours of energy.", number: "40000", label: "SEARCHES PER SECOND", emoji: "🔍" },
+    ],
+
+    // ==========================================
+    // INDIAN POLITICAL & CITIZEN RIGHTS
+    // ==========================================
+    rights: [
+        { text: "Article 14: Right to Equality — The State shall not deny any person equality before the law.", article: "Article 14", category: "Fundamental Rights", emoji: "⚖️" },
+        { text: "Article 19: Right to Freedom of Speech & Expression — Every citizen has the right to speak freely.", article: "Article 19", category: "Fundamental Rights", emoji: "🗣️" },
+        { text: "Article 21: Right to Life & Personal Liberty — No person shall be deprived of life except by law.", article: "Article 21", category: "Fundamental Rights", emoji: "🛡️" },
+        { text: "Article 21A: Right to Education — Every child aged 6-14 has the right to free & compulsory education.", article: "Article 21A", category: "Fundamental Rights", emoji: "📚" },
+        { text: "Article 15: Prohibition of Discrimination — No discrimination on grounds of religion, race, caste, sex or place of birth.", article: "Article 15", category: "Fundamental Rights", emoji: "🤝" },
+        { text: "Article 17: Abolition of Untouchability — Untouchability is abolished and its practice in any form is forbidden.", article: "Article 17", category: "Fundamental Rights", emoji: "✊" },
+        { text: "Article 25: Freedom of Religion — All persons are equally entitled to freedom of conscience and the right to profess, practice and propagate religion.", article: "Article 25", category: "Fundamental Rights", emoji: "🕊️" },
+        { text: "Article 32: Right to Constitutional Remedies — You can directly approach the Supreme Court if your fundamental rights are violated.", article: "Article 32", category: "Fundamental Rights", emoji: "🏛️" },
+        { text: "RTI Act 2005: Every citizen has the right to request information from any public authority. Reply must come within 30 days.", article: "RTI Act", category: "Information Rights", emoji: "📋" },
+        { text: "Article 326: Right to Vote — Every citizen above 18 years has the right to vote regardless of caste, religion, or gender.", article: "Article 326", category: "Political Rights", emoji: "🗳️" },
+        { text: "Consumer Protection Act 2019: You have the right to be protected against marketing of hazardous goods and services.", article: "CPA 2019", category: "Consumer Rights", emoji: "🛒" },
+        { text: "Article 23: Right Against Exploitation — Traffic in human beings and forced labor are prohibited.", article: "Article 23", category: "Fundamental Rights", emoji: "⛓️" },
+        { text: "Article 24: No child below 14 years shall be employed in any factory, mine or hazardous employment.", article: "Article 24", category: "Child Rights", emoji: "👶" },
+        { text: "POCSO Act: Protection of Children from Sexual Offences — Strict punishment for any offence against children.", article: "POCSO Act", category: "Child Rights", emoji: "🔒" },
+        { text: "FIR is your right! Police CANNOT refuse to file an FIR. If they do, complain to the Superintendent of Police.", article: "CrPC Sec 154", category: "Legal Rights", emoji: "📝" },
+        { text: "Right to Free Legal Aid: Under Article 39A, every person who cannot afford a lawyer gets free legal aid.", article: "Article 39A", category: "Legal Rights", emoji: "⚖️" },
+        { text: "Article 20: No person shall be punished for the same offence more than once (Double Jeopardy protection).", article: "Article 20", category: "Legal Rights", emoji: "🏛️" },
+        { text: "Article 22: Right to be informed of the grounds of arrest. No arrested person shall be denied the right to consult a lawyer.", article: "Article 22", category: "Legal Rights", emoji: "👮" },
+        { text: "Equal Remuneration Act: Men and women are entitled to equal pay for equal work. Discrimination in wages is illegal.", article: "ERA 1976", category: "Worker Rights", emoji: "💰" },
+        { text: "Maternity Benefit Act: Women are entitled to 26 weeks of paid maternity leave from their employer.", article: "MB Act", category: "Women's Rights", emoji: "🤰" },
+        { text: "Domestic Violence Act 2005: Women have the right to live in a violence-free home. Protection orders can be issued.", article: "DV Act", category: "Women's Rights", emoji: "🏠" },
+        { text: "Right to Privacy: The Supreme Court declared privacy as a Fundamental Right under Article 21 in 2017.", article: "Article 21", category: "Digital Rights", emoji: "🔐" },
+        { text: "MNREGA: Every rural household has the right to 100 days of guaranteed wage employment per year.", article: "MNREGA", category: "Employment Rights", emoji: "🏗️" },
+        { text: "Food Security Act: 75% rural & 50% urban population has the right to receive subsidized food grains.", article: "NFSA 2013", category: "Social Rights", emoji: "🍚" },
+        { text: "Article 19(1)(b): Right to Assemble Peacefully — Citizens can hold peaceful protests and rallies without arms.", article: "Article 19", category: "Political Rights", emoji: "✊" },
+        { text: "Persons with Disabilities Act: Every disabled person has the right to equal opportunities, non-discrimination & full participation.", article: "RPwD 2016", category: "Disability Rights", emoji: "♿" },
+        { text: "Article 29 & 30: Minorities have the right to conserve their language, script, culture & establish educational institutions.", article: "Article 29-30", category: "Minority Rights", emoji: "📖" },
+        { text: "Senior Citizens Act: Parents & senior citizens have the right to claim maintenance from children/relatives.", article: "MWPSC 2007", category: "Senior Rights", emoji: "👴" },
+        { text: "Whistleblower Protection Act: Persons exposing corruption or misuse of power are protected under law.", article: "WBP 2014", category: "Anti-Corruption", emoji: "📢" },
+        { text: "Right to Information: Under RTI, you can ask ANY government department how your tax money is being spent.", article: "RTI Act", category: "Information Rights", emoji: "💡" },
     ]
 };
 
@@ -271,15 +307,15 @@ export function getRandomAccent() {
  * Auto-generate a complete Short config — zero input needed
  */
 export function autoGenerateShort() {
-    const categories = ['motivation', 'facts', 'tips', 'trending', 'poems', 'animation'];
+    const categories = ['motivation', 'facts', 'tips', 'trending', 'poems', 'animation', 'rights'];
     const category = categories[Math.floor(Math.random() * categories.length)];
     const [content] = getRandomContent(category, 1);
     const gradient = getRandomGradient();
     const accent = getRandomAccent();
     const textColor = '#ffffff';
 
-    const templateMap = { motivation: 'quotes', facts: 'facts', tips: 'tips', trending: 'trending', poems: 'poems', animation: 'animation' };
-    const durationMap = { motivation: 7, facts: 9, tips: 8, trending: 8, poems: 10, animation: 8 };
+    const templateMap = { motivation: 'quotes', facts: 'facts', tips: 'tips', trending: 'trending', poems: 'poems', animation: 'animation', rights: 'rights' };
+    const durationMap = { motivation: 7, facts: 9, tips: 8, trending: 8, poems: 10, animation: 8, rights: 10 };
 
     return {
         category,

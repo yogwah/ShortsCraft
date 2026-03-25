@@ -83,8 +83,8 @@ function initDurationSelector() {
 // Multi-segment: each video contains multiple content pieces
 // =============================================
 function generateBatchForCategory(count) {
-    const categoryMap = { motivation: 'quotes', facts: 'facts', tips: 'tips', trending: 'trending', poems: 'poems' };
-    const segDurationMap = { motivation: 7, facts: 9, tips: 8, trending: 8, poems: 10 };
+    const categoryMap = { motivation: 'quotes', facts: 'facts', tips: 'tips', trending: 'trending', poems: 'poems', rights: 'rights' };
+    const segDurationMap = { motivation: 7, facts: 9, tips: 8, trending: 8, poems: 10, rights: 10 };
     const totalDuration = state.selectedDuration;
 
     if (state.selectedCategory === 'all') {
@@ -123,7 +123,7 @@ function generateBatchForCategory(count) {
  * Build an array of segments, each with its own content + style + background
  */
 function buildSegments(category, segCount, segDuration) {
-    const categoryMap = { motivation: 'quotes', facts: 'facts', tips: 'tips', trending: 'trending', poems: 'poems' };
+    const categoryMap = { motivation: 'quotes', facts: 'facts', tips: 'tips', trending: 'trending', poems: 'poems', rights: 'rights' };
     const items = getRandomContent(category, segCount);
     return items.map(content => ({
         content,

@@ -520,6 +520,118 @@ function drawWatermark(ctx, time) {
 }
 
 // =============================================
+// Template: RIGHTS (Indian Political & Citizen Rights)
+// =============================================
+function renderRights(ctx, time, duration, data, style) {
+    const { accentColor } = style;
+    const text = data.text || 'Know your rights.';
+    const article = data.article || '';
+    const category = data.category || 'Rights';
+    const emoji = data.emoji || '🏛️';
+    const hasPhoto = !!style.backgroundImage;
+
+    drawBackground(ctx, style);
+    drawParticles(ctx, time, hasPhoto, 20);
+
+    // Indian tricolor accent stripe at top
+    const stripeH = 8;
+    ctx.fillStyle = '#FF9933'; // Saffron
+    ctx.fillRect(0, 0, W / 3, stripeH);
+    ctx.fillStyle = '#FFFFFF'; // White
+    ctx.fillRect(W / 3, 0, W / 3, stripeH);
+    ctx.fillStyle = '#138808'; // Green
+    ctx.fillRect(W * 2 / 3, 0, W / 3, stripeH);
+
+    // Article badge with glow
+    const badgeSlide = slideIn(time, 0.2, 0.5, 'down', 60);
+    if (badgeSlide.alpha > 0) {
+        ctx.save();
+        ctx.globalAlpha = badgeSlide.alpha;
+        const badgeText = `${emoji} ${article}`;
+        ctx.font = '900 44px Inter';
+        const bw = ctx.measureText(badgeText).width + 70;
+        roundRect(ctx, W / 2 - bw / 2, 240 + badgeSlide.y, bw, 68, 34);
+        ctx.fillStyle = 'rgba(0,0,0,0.6)';
+        ctx.fill();
+        ctx.strokeStyle = '#FF9933';
+        ctx.lineWidth = 2;
+        ctx.shadowColor = '#FF9933';
+        ctx.shadowBlur = 15;
+        roundRect(ctx, W / 2 - bw / 2, 240 + badgeSlide.y, bw, 68, 34);
+        ctx.stroke();
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = '#FF9933';
+        ctx.fillText(badgeText, W / 2, 274 + badgeSlide.y);
+        ctx.restore();
+    }
+
+    // Category tag
+    const catSlide = slideIn(time, 0.4, 0.4, 'down', 40);
+    if (catSlide.alpha > 0) {
+        ctx.save();
+        ctx.globalAlpha = catSlide.alpha;
+        ctx.font = '700 32px Inter';
+        const catText = category.toUpperCase();
+        const cw = ctx.measureText(catText).width + 40;
+        roundRect(ctx, W / 2 - cw / 2, 340 + catSlide.y, cw, 48, 24);
+        ctx.fillStyle = 'rgba(19, 136, 8, 0.3)';
+        ctx.fill();
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = '#4ae68a';
+        ctx.fillText(catText, W / 2, 364 + catSlide.y);
+        ctx.restore();
+    }
+
+    // Main rights text with typewriter
+    const display = typewriter(text, time, 0.8, 18);
+    if (display) {
+        ctx.save();
+        ctx.font = 'bold 62px Inter';
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#ffffff';
+        ctx.shadowColor = 'rgba(0,0,0,0.8)';
+        ctx.shadowBlur = 15;
+        const lines = wrapText(ctx, display, W - 120);
+        const totalH = lines.length * 84;
+        const startY = H / 2 - totalH / 2 + 60;
+        lines.forEach((line, i) => {
+            const a = fadeIn(ctx, time, 0.8 + i * 0.1, 0.3);
+            ctx.globalAlpha = Math.max(0, a);
+            ctx.fillText(line, W / 2, startY + i * 84);
+        });
+        ctx.restore();
+    }
+
+    // Ashoka Chakra-inspired decoration at bottom
+    const chakraAlpha = fadeIn(ctx, time, 1.5, 0.8);
+    if (chakraAlpha > 0) {
+        ctx.save();
+        ctx.globalAlpha = chakraAlpha * 0.15;
+        ctx.strokeStyle = '#000080';
+        ctx.lineWidth = 3;
+        const cx = W / 2;
+        const cy = H - 280;
+        const r = 80;
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, 0, Math.PI * 2);
+        ctx.stroke();
+        // 24 spokes
+        for (let i = 0; i < 24; i++) {
+            const angle = (i / 24) * Math.PI * 2 + time * 0.3;
+            ctx.beginPath();
+            ctx.moveTo(cx, cy);
+            ctx.lineTo(cx + Math.cos(angle) * r, cy + Math.sin(angle) * r);
+            ctx.stroke();
+        }
+        ctx.restore();
+    }
+
+    drawFollowCTA(ctx, time, duration, '#FF9933');
+}
+
+// =============================================
 // Template Registry
 // =============================================
 export const templateRenderers = {
@@ -528,6 +640,7 @@ export const templateRenderers = {
     tips: renderTips,
     trending: renderTrending,
     poems: renderPoems,
+    rights: renderRights,
 };
 
 /**
