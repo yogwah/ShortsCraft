@@ -330,6 +330,22 @@ function openVideoPlayer(videoId, index) {
     modal.classList.remove('hidden');
 }
 
+// =============================================
+// Reliable file download helper
+// =============================================
+function triggerDownload(blobUrl, fileName) {
+    const a = document.createElement('a');
+    a.style.display = 'none';
+    a.href = blobUrl;
+    a.download = fileName;
+    document.body.appendChild(a);
+    a.click();
+    // Clean up anchor after brief delay
+    setTimeout(() => {
+        document.body.removeChild(a);
+    }, 200);
+}
+
 function closeVideoPlayer() {
     const modal = document.getElementById('video-modal');
     const video = document.getElementById('video-player');
@@ -346,10 +362,7 @@ function downloadCurrentVideo() {
     const url = modal.dataset.currentUrl;
     const name = modal.dataset.currentName;
     if (!url) return;
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = name;
-    a.click();
+    triggerDownload(url, name);
 }
 
 // =============================================
@@ -379,18 +392,17 @@ async function exportAllVideos() {
         const blob = state.videoBlobs.get(short.id);
         if (blob) {
             const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `short-${short.category}-${i + 1}-${Date.now()}.webm`;
-            a.click();
-            URL.revokeObjectURL(url);
+            const fileName = `short-${short.category}-${i + 1}-${Date.now()}.webm`;
+            triggerDownload(url, fileName);
+            // Delay revoking so browser can finish saving
+            setTimeout(() => URL.revokeObjectURL(url), 3000);
         }
 
         exported++;
         state.stats.exported++;
 
-        // Small delay between downloads to avoid browser blocking
-        await new Promise(r => setTimeout(r, 500));
+        // Longer delay between downloads to avoid browser blocking
+        await new Promise(r => setTimeout(r, 1500));
     }
 
     updateStats();
